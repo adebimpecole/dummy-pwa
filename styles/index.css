@@ -14,16 +14,10 @@ html {
   background-image: url("../images/bg.jpg");
   background-size: cover;
   height: 100vh;
-  margin-top: -10px;
-  padding-top: env(safe-area-inset-top);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 body {
   font-family: Spartan-Bold;
-  background-image: url("../images/bg.jpg");
   background-size: cover;
   height: 100vh;
   margin: 0;
