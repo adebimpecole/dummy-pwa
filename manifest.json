@@ -1,0 +1,49 @@
+{
+  "orientation": "portrait",
+  "name": "Calculator PWA",
+  "short_name": "Calculator",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "images/icon.jpeg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "description": "A simple and efficient calculator PWA.",
+  "screenshots": [
+    {
+      "src": "images/screenshot.png",
+      "sizes": "1419x924",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Calculation",
+      "short_name": "Calc",
+      "url": "index.html",
+      "icons": [
+        {
+          "src": "images/icon.jpeg",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "calculator",
+      "url": "https://example.com/?url=%s"
+    }
+  ],
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "lang": "en",
+  "dir": "ltr"
+}
