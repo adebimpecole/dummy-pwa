@@ -1,8 +1,7 @@
 {
     "version": 2,
     "production": {
-        "source": "main",
-        "destination": "https://dummy-pwa-orcin.vercel.app/"
+        "source": "main"
     },
     "rewrites": [
         {
