@@ -1,59 +1,49 @@
 if ("serviceWorker" in navigator && "PushManager" in window) {
-  window.onload = () => {
-    Notification.requestPermission().then((result) => {
-      if (result === "granted") {
-        randomNotification();
-      }
-    });
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((registration) => {
-        console.log(
-          "Service Worker registered with scope:",
-          registration.scope
-        );
+  window.onload = async () => {
+    try {
+      const registration = await navigator.serviceWorker.register(
+        "/service-worker.js"
+      );
 
-        return registration.pushManager.subscribe({
-          userVisibleOnly: true, // Always show notifications
-          applicationServerKey: urlBase64ToUint8Array(
-            "BIaQhF5lDg7L5pqnXGFh9QN8OT7ymEutB7w7xYo-gM_XZBALLIPL37r4siGYmFIa-E2GWu8ban5mUkSDHthUXuY"
-          ), // Public VAPID key
-        });
-      })
-      .then((subscription) => {
-        // Send the subscription to your server to store it
-        return fetch("/api/subscribe", {
+      let subscription = await registration.pushManager.getSubscription();
+
+      if (subscription) {
+        const payload = "This is my payload"; // Define your payload here
+        await fetch("/api/sendNotification", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(subscription),
+          body: JSON.stringify({
+            subscription,
+            payload,
+          }),
         });
-      })
-      .then((response) => {
-        if (response.ok) {
-          console.log("User is subscribed!");
-        } else {
-          console.error("Failed to subscribe user.");
-        }
-      })
-      .catch((error) => {
-        console.error("Service Worker or Push subscription error:", error);
-      });
-  };
-}
+      } else {
+        const response = await fetch("/api/vapid-public-key");
+        const vapidPublicKey = await response.text();
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
-// Setting up random Notification
-function randomNotification() {
-  const notifTitle = "Welcome!";
-  const notifBody = `Created by dummy pwa.`;
-  const notifImg = `./images/icon.png`;
-  const options = {
-    body: notifBody,
-    icon: notifImg,
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidKey,
+        });
+
+        // After subscribing, send the subscription to the server
+        await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ subscription }),
+        });
+      }
+
+      console.log("User is subscribed!");
+    } catch (error) {
+      console.error("Service Worker or Push subscription error:", error);
+    }
   };
-  new Notification(notifTitle, options);
-  setInterval(randomNotification, 30000);
 }
 
 // Helper function to convert VAPID public key to Uint8Array
@@ -75,6 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchBooks("new");
   fetchBooks("related");
 });
+
+document.getElementById("doIt").onclick = () => {
+  const payload = document.getElementById("notification-payload").value;
+  const delay = document.getElementById("notification-delay").value;
+  const ttl = document.getElementById("notification-ttl").value;
+};
 
 function fetchBooks(type) {
   fetch(`/api/${type}`)

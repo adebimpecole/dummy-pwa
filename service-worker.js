@@ -42,21 +42,17 @@ self.addEventListener("periodicsync", (event) => {
   }
 });
 
-let notificationInterval = null;
-
 self.addEventListener("push", (event) => {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || "Notification";
-  const options = {
-    body: data.body || "Test this Bitch!",
-    icon: data.icon || "./images/icon.png",
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
+  const payload = event.data?.text() ?? "no payload";
+  event.waitUntil(
+    self.registration.showNotification("ServiceWorker Cookbook", {
+      body: payload,
+    })
+  );
 });
 
+// Handle notification click event
 self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-  var fullPath = self.location.origin + event.notification.data.path;
-  clients.openWindow(fullPath);
+  event.notification.close(); // Close notification on click
+  clients.openWindow("/"); // Adjust URL to open your app or another page
 });
