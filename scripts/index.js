@@ -39,7 +39,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           body: JSON.stringify({ subscription }),
         });
       })
-      .then((response) => {
+      .then((response) => { 
         if (response.ok) {
           console.log("User is subscribed!");
         } else {
