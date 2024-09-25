@@ -18,7 +18,7 @@
         })
         .then((subscription) => {
           // Send the subscription to your server to store it
-          return fetch("/subscribe", {
+          return fetch("https://dummy-pwa-orcin.vercel.app/subscribe", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -60,7 +60,7 @@
   });
 
   function fetchBooks(type) {
-    fetch(`/${type}`)
+    fetch(`https://dummy-pwa-orcin.vercel.app/${type}`)
       .then((response) => response.json())
       .then((books) => {
         const container = document.getElementById(`${type}-books-list`);
