@@ -2,8 +2,8 @@ const CACHE_NAME = "mini-e-library-cache";
 const urlsToCache = [
   "/",
   "/index.html",
-  "/styles.css",
-  "/app.js",
+  "/styles/index.css",
+  "/scripts/index.js",
   "/book.html",
 ];
 

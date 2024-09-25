@@ -42,11 +42,11 @@ webPush.setVapidDetails(
   vapidKeys.privateKey
 );
 
-app.get("/", (req, res, next) => {
-  console.log("passed");
-  res.send(books);
-  next();
-});
+// app.get("/", (req, res, next) => {
+//   console.log("passed");
+//   res.send(books);
+//   next();
+// });
 
 // Background sync route
 app.post("/sync-books", (req, res) => {
