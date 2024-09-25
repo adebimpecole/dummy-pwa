@@ -66,11 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchBooks("related");
 });
 
-document.getElementById("doIt").onclick = () => {
-  const payload = document.getElementById("notification-payload").value;
-  const delay = document.getElementById("notification-delay").value;
-  const ttl = document.getElementById("notification-ttl").value;
-};
 
 function fetchBooks(type) {
   fetch(`/api/${type}`)
