@@ -45,16 +45,14 @@ self.addEventListener("periodicsync", (event) => {
 let notificationInterval = null;
 
 self.addEventListener("push", (event) => {
-  event.waitUntil(
-    clearInterval(notificationInterval),
+  const data = event.data ? event.data.json() : {};
+  const title = data.title || "Notification";
+  const options = {
+    body: data.body || "Test this Bitch!",
+    icon: data.icon || "./images/icon.png",
+  };
 
-    (notificationInterval = setInterval(() => {
-      self.registration.showNotification("Hello!", {
-        body: "This is the dummy pwa app",
-        icon: "images/icon.png",
-      });
-    }, 30000)) // 30 seconds
-  );
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener("notificationclick", (event) => {
