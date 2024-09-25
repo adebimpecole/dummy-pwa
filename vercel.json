@@ -2,10 +2,6 @@
     "version": 2,
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "/index.html"
-        },
-        {
             "src": "/new",
             "dest": "https://dummy-pwa-orcin.vercel.app/new"
         },
