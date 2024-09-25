@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dummy PWA</title>
+
+    <base href="/" />
+
+    <!-- This meta viewport ensures the webpage's dimensions change according to the device it's on. This is called Responsive Web Design.-->
+    <meta
+      name="viewport"
+      content="width=device-width; initial-scale=1; viewport-fit=cover"
+    />
+    <meta name="description" content="This is a PWA Starter app" />
+
+    <!-- Theme color for the status bar -->
+    <meta name="theme-color" content="#ffff01" />
+    <!-- Android - Customizing the status bar -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="StatusBar PWA" />
+
+    <!-- iOS - Customizing the status bar -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="StatusBar PWA" />
+
+    <link rel="apple-touch-icon" href="images/favicon-32x32.png" />
+
+    <meta name="pwa-starter-template-identity" content="pwa-starter" />
+
+    <link rel="icon" href="/images/extension_icon.png" type="image/png" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <link rel="stylesheet" href="/assets/styles.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+  </head>
+
+  <body>
+    <h1>Welcome to My PWA</h1>
+    <button id="sync-data">Sync Data</button>
+    <button id="notify-me">Get Notification</button>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(function (registration) {
+            console.log("Service Worker registered:", registration);
+          })
+          .catch(function (error) {
+            console.error("Service Worker registration failed:", error);
+          });
+      }
+
+      // Periodic Sync
+      document
+        .getElementById("sync-data")
+        .addEventListener("click", async () => {
+          if ("periodicSync" in navigator.serviceWorker) {
+            const registration = await navigator.serviceWorker.ready;
+            await registration.periodicSync.register("sync-tag", {
+              minInterval: 24 * 60 * 60 * 1000, // Daily sync
+            });
+          } else {
+            console.log("Periodic Sync not supported");
+          }
+        });
+
+      // Push Notifications
+      document
+        .getElementById("notify-me")
+        .addEventListener("click", async () => {
+          const permission = await Notification.requestPermission();
+          if (permission === "granted") {
+            const registration = await navigator.serviceWorker.ready;
+            registration.showNotification("Hello from PWA!");
+          }
+        });
+    </script>
+  </body>
+</html>

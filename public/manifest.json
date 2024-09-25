@@ -1,19 +1,19 @@
 {
-  "orientation": "portrait",
-  "name": "Calculator PWA",
-  "short_name": "Calculator",
-  "start_url": "index.html",
-  "display": "standalone",
+  "orientation": "any",
+  "name": "Dummy PWA",
+  "short_name": "Dummy",
+  "start_url": "/",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "images/icon.jpeg",
+      "src": "images/extension_icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "description": "A simple and efficient calculator PWA.",
+  "description": "A dummy PWA.",
   "screenshots": [
     {
       "src": "images/screenshot.png",
@@ -21,18 +21,16 @@
       "type": "image/png"
     }
   ],
+  "file_handlers": {
+    "images": {
+      "extensions": [".png", ".jpg"]
+    }
+  },
   "shortcuts": [
     {
-      "name": "Quick Calculation",
-      "short_name": "Calc",
-      "url": "index.html",
-      "icons": [
-        {
-          "src": "images/icon.jpeg",
-          "sizes": "512x512",
-          "type": "image/png"
-        }
-      ]
+      "name": "Open Sync",
+      "url": "/index.html#sync-data",
+      "icons": [{ "src": "/assets/icon-192x192.png", "sizes": "192x192" }]
     }
   ],
   "protocol_handlers": [
