@@ -29,7 +29,7 @@ self.addEventListener("sync", (event) => {
   if (event.tag === "sync-books") {
     event.waitUntil(
       // Perform background sync operations (like updating books from the server)
-      fetch("/api/books")
+      fetch("/sync-books")
         .then((response) => response.json())
         .then((data) => {
           // Update IndexedDB or other storage with new data

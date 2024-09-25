@@ -1,0 +1,7 @@
+export default function handler(req, res) {
+  res.status(200).json([
+    { id: 1, title: "Book One", author: "Author One", rating: 4.5 },
+    { id: 2, title: "Book Two", author: "Author Two", rating: 4.0 },
+    // Add more books as needed
+  ]);
+}

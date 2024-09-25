@@ -43,24 +43,24 @@ webPush.setVapidDetails(
 );
 
 // Background sync route
-app.post("/api/sync-books", (req, res) => {
+app.post("/sync-books", (req, res) => {
   // Add logic to sync the latest books here
   res.json({ message: "Books synced" });
 });
 
-app.get("/api/books/recent", (req, res) => {
+app.get("/recent", (req, res) => {
   // Fetch recent books logic here
   res.json(books);
 });
 
-app.get("/api/books/new", (req, res) => {
+app.get("/new", (req, res) => {
   // Fetch new books logic here
   console.log("New books route hit"); // Log to console for debugging
 
   res.json(books);
 });
 
-app.get("/api/books/related", (req, res) => {
+app.get("/related", (req, res) => {
   // Fetch related books logic here
   res.json(books);
 });
