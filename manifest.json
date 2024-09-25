@@ -8,7 +8,7 @@
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "images/extension_icon.png",
+      "src": "images/icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -30,7 +30,7 @@
     {
       "name": "Open Sync",
       "url": "/index.html#sync-data",
-      "icons": [{ "src": "/assets/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/images/icon.png", "sizes": "192x192" }]
     }
   ],
   "protocol_handlers": [
