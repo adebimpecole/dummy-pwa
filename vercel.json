@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/new",
+            "dest": "https://dummy-pwa-orcin.vercel.app/new"
+        },
+        {
+            "src": "/recent",
+            "dest": "https://dummy-pwa-orcin.vercel.app/recent"
+        },
+        {
+            "src": "/related",
+            "dest": "https://dummy-pwa-orcin.vercel.app/related"
+        }
+    ]
+}
