@@ -43,25 +43,10 @@ self.addEventListener("periodicsync", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-  const data = event.data.json();
-  console.log("Push Notification received:", data);
-
-  const options = {
-    body: data.body,
-    icon: "/icons/icon.png",
-    badge: "/icons/icon.png", // Your PWA badge icon
-  };
-
   event.waitUntil(
     self.registration.showNotification("Hello!", {
       body: "This is the dummy pwa app",
       icon: "images/icon.png",
-    })
-  );
-
-  event.waitUntil(
-    self.registration.pushManager.getSubscription().then((subscription) => {
-      return subscription.showNotification(data.title, options);
     })
   );
 });
