@@ -60,7 +60,7 @@
   });
 
   function fetchBooks(type) {
-    fetch(`/${type}`)
+    fetch(`/`)
       .then((response) => response.json())
       .then((books) => {
         const container = document.getElementById(`${type}-books-list`);

@@ -42,6 +42,12 @@ webPush.setVapidDetails(
   vapidKeys.privateKey
 );
 
+app.get("/", (req, res, next) => {
+  console.log("passed");
+  res.json(books);
+  next();
+});
+
 // Background sync route
 app.post("/sync-books", (req, res) => {
   // Add logic to sync the latest books here
