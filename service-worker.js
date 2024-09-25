@@ -48,7 +48,7 @@ self.addEventListener("push", (event) => {
 
   const options = {
     body: data.body,
-    icon: "/icons/icon-192x192.png", // Your PWA icon
+    icon: "/icons/icon.png", 
     badge: "/icons/badge-72x72.png", // Your PWA badge icon
   };
 
