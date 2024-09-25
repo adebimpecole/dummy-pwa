@@ -60,7 +60,7 @@
   });
 
   function fetchBooks(type) {
-    fetch(`/api/books/${type}`)
+    fetch(`https://dummy-pwa-orcin.vercel.app/api/books/${type}`)
       .then((response) => response.json())
       .then((books) => {
         const container = document.getElementById(`${type}-books-list`);
