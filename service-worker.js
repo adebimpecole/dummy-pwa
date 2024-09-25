@@ -24,22 +24,18 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// service-worker.js
 self.addEventListener("sync", (event) => {
   if (event.tag === "sync-books") {
     event.waitUntil(
-      // Perform background sync operations (like updating books from the server)
       fetch("/api/sync-books")
         .then((response) => response.json())
         .then((data) => {
-          // Update IndexedDB or other storage with new data
           console.log("Books synced in the background", data);
         })
     );
   }
 });
 
-// Periodic Sync
 self.addEventListener("periodicsync", (event) => {
   if (event.tag === "sync-book-order") {
     event.waitUntil(updateBookOrder());
@@ -56,13 +52,14 @@ self.addEventListener("push", (event) => {
     badge: "/icons/badge-72x72.png", // Your PWA badge icon
   };
 
-  event.waitUntil(self.registration.showNotification(data.title, options));
+  event.waitUntil(
+    self.registration.pushManager.getSubscription().then((subscription) => {
+      return subscription.showNotification(data.title, options);
+    })
+  );
 });
 
-// Handle notification click
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  event.waitUntil(
-    clients.openWindow("/") // Redirect to your homepage or another page
-  );
+  event.waitUntil(clients.openWindow("/")); // Redirect to your homepage or another page
 });

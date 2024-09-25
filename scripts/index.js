@@ -30,10 +30,10 @@
           if (response.ok) {
             console.log("User is subscribed!");
 
-            // Send notification every 30 seconds
+            // Send notification every 1 minute
             setInterval(() => {
               sendNotification(); // Function to trigger a notification
-            }, 100000);
+            }, 60000);
           } else {
             console.error("Failed to subscribe user.");
           }
@@ -46,10 +46,12 @@
 
   function sendNotification() {
     navigator.serviceWorker.ready.then((registration) => {
-      registration.showNotification("Reminder", {
-        body: "This is a notification sent every 30 seconds.",
-        icon: "/images/icon.png",
-        badge: "/images/icon.png",
+      registration.pushManager.getSubscription().then((subscription) => {
+        subscription.showNotification("Reminder", {
+          body: "This is a notification sent every 1 minute.",
+          icon: "/images/icon.png",
+          badge: "/images/icon.png",
+        });
       });
     });
   }

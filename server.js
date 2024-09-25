@@ -17,7 +17,6 @@ const vapidKeys = {
   privateKey: "h0K6hYWv4ng0nCBzQUio8EpKabG9ZAQR2jUOSdgLD0U", // Your generated private key
 };
 
-
 // Configure web-push
 webPush.setVapidDetails(
   "mailto:your-email@example.com",
@@ -35,7 +34,7 @@ const sendNotifications = (message) => {
   });
 };
 
-// Send notification every 30 seconds to all subscribers
+// Send notification every 1 minute to all subscribers
 setInterval(() => {
   const notificationPayload = {
     title: "Library Update",
@@ -45,7 +44,7 @@ setInterval(() => {
   };
 
   sendNotifications(notificationPayload);
-}, 30000); // Notification sent every 30 seconds
+}, 60000); // Notification sent every 1 minute
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
