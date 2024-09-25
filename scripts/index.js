@@ -1,48 +1,54 @@
 if ("serviceWorker" in navigator && "PushManager" in window) {
-  window.onload = async () => {
-    try {
-      const registration = await navigator.serviceWorker.register(
-        "/service-worker.js"
-      );
+  window.onload = () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        return registration.pushManager
+          .getSubscription()
+          .then(async (subscription) => {
+            if (subscription) {
+              let text = "This is my payload";
+              fetch("/api/sendNotification", {
+                method: "post",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  subscription,
+                  payload,
+                }),
+              });
+              return subscription;
+            }
+            const response = await fetch("/api/vapid-public-key");
+            const vapidPublicKey = await response.text();
+            const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
-      let subscription = await registration.pushManager.getSubscription();
-
-      if (subscription) {
-        const payload = "This is my payload"; // Define your payload here
-        await fetch("/api/sendNotification", {
-          method: "POST",
+            registration.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: convertedVapidKey,
+            });
+          });
+      })
+      .then((subscription) => {
+        fetch("api/subscribe", {
+          method: "post",
           headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            subscription,
-            payload,
-          }),
-        });
-      } else {
-        const response = await fetch("/api/vapid-public-key");
-        const vapidPublicKey = await response.text();
-        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
-
-        subscription = await registration.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: convertedVapidKey,
-        });
-
-        // After subscribing, send the subscription to the server
-        await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+            "Content-type": "application/json",
           },
           body: JSON.stringify({ subscription }),
-        }); 
-      }
-
-      console.log("User is subscribed!");
-    } catch (error) {
-      console.error("Service Worker or Push subscription error:", error);
-    }
+        });
+      })
+      .then((response) => {
+        if (response.ok) {
+          console.log("User is subscribed!");
+        } else {
+          console.error("Failed to subscribe user.");
+        }
+      })
+      .catch((error) => {
+        console.error("Service Worker or Push subscription error:", error);
+      });
   };
 }
 
@@ -65,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchBooks("new");
   fetchBooks("related");
 });
-
 
 function fetchBooks(type) {
   fetch(`/api/${type}`)
