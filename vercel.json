@@ -1,11 +1,5 @@
 {
     "version": 2,
-    "environments": {
-        "production": {
-            "source": "main",
-            "destination": "https://dummy-pwa-orcin.vercel.app/"
-        }
-    },
     "rewrites": [
         {
             "source": "/api/(.*)",
