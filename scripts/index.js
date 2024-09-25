@@ -1,40 +1,42 @@
 (function () {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((registration) => {
-        console.log(
-          "Service Worker registered with scope:",
-          registration.scope
-        );
+  if ("serviceWorker" in navigator && "PushManager" in window) {
+    window.onload = () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
 
-        return registration.pushManager.subscribe({
-          userVisibleOnly: true, // Always show notifications
-          applicationServerKey: urlBase64ToUint8Array(
-            "BIaQhF5lDg7L5pqnXGFh9QN8OT7ymEutB7w7xYo-gM_XZBALLIPL37r4siGYmFIa-E2GWu8ban5mUkSDHthUXuY"
-          ), // Public VAPID key
+          return registration.pushManager.subscribe({
+            userVisibleOnly: true, // Always show notifications
+            applicationServerKey: urlBase64ToUint8Array(
+              "BIaQhF5lDg7L5pqnXGFh9QN8OT7ymEutB7w7xYo-gM_XZBALLIPL37r4siGYmFIa-E2GWu8ban5mUkSDHthUXuY"
+            ), // Public VAPID key
+          });
+        })
+        .then((subscription) => {
+          // Send the subscription to your server to store it
+          return fetch("/subscribe", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(subscription),
+          });
+        })
+        .then((response) => {
+          if (response.ok) {
+            console.log("User is subscribed!");
+          } else {
+            console.error("Failed to subscribe user.");
+          }
+        })
+        .catch((error) => {
+          console.error("Service Worker or Push subscription error:", error);
         });
-      })
-      .then((subscription) => {
-        // Send the subscription to your server to store it
-        return fetch("/subscribe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(subscription),
-        });
-      })
-      .then((response) => {
-        if (response.ok) {
-          console.log("User is subscribed!");
-        } else {
-          console.error("Failed to subscribe user.");
-        }
-      })
-      .catch((error) => {
-        console.error("Service Worker or Push subscription error:", error);
-      });
+    };
   }
 
   // Helper function to convert VAPID public key to Uint8Array
