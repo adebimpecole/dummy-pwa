@@ -42,11 +42,6 @@ webPush.setVapidDetails(
   vapidKeys.privateKey
 );
 
-// Route to fetch books
-app.get("/api/books", (req, res) => {
-  res.json(books);
-});
-
 // Background sync route
 app.post("/api/sync-books", (req, res) => {
   // Add logic to sync the latest books here
@@ -60,6 +55,8 @@ app.get("/api/books/recent", (req, res) => {
 
 app.get("/api/books/new", (req, res) => {
   // Fetch new books logic here
+  console.log("New books route hit"); // Log to console for debugging
+
   res.json(books);
 });
 
