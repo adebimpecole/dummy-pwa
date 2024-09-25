@@ -36,7 +36,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ subscription }),
-        });
+        }); 
       }
 
       console.log("User is subscribed!");
