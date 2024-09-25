@@ -33,6 +33,12 @@ section {
   border-radius: 8px;
 }
 
+section div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .books {
   display: flex;
   flex-wrap: wrap;
@@ -43,7 +49,8 @@ section {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: calc(33.333% - 20px);
+  width: 30%;
+  min-width: 120px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 

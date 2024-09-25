@@ -1,11 +1,12 @@
 {
-  "orientation": "any",
   "name": "Dummy PWA",
   "short_name": "Dummy",
+  "id": "dummy500",
   "start_url": "/",
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
+  "orientation": "any",
   "icons": [
     {
       "src": "images/icon.png",
@@ -65,6 +66,50 @@
   "edge_side_panel": {
     "preferred_width": 15
   },
+  "widgets": [
+    {
+      "id": "widget-1",
+      "name": "Widget 1",
+      "description": "A sample widget",
+      "icon": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "url": "/widget-1"
+    },
+    {
+      "id": "widget-2",
+      "name": "Widget 2",
+      "description": "Another sample widget",
+      "icon": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "url": "/widget-2"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "categories": [
+    "books",
+    "education",
+    "entertainment"
+  ],
+  "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "windows",
+      "url": "https://dummy-pwa-orcin.vercel.app/",
+      "id": "dummypwa.DummyApp"
+    }
+  ],
+  "scope": "https://dummy-pwa-orcin.vercel.app/",
+  "scope_extensions": [
+    {
+      "origin": "*.dummy-pwa-orcin.vercel.app"
+    }
+  ]
 }

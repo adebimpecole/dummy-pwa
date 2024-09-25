@@ -1,0 +1,36 @@
+{
+    "name": "My PWA App",
+    "description": "A sample PWA app with widgets",
+    "icons": [
+      {
+        "src": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1",
+        "name": "Widget 1",
+        "description": "A sample widget",
+        "icon": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "url": "/widget-1"
+      },
+      {
+        "id": "widget-2",
+        "name": "Widget 2",
+        "description": "Another sample widget",
+        "icon": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "url": "/widget-2"
+      }
+    ]
+  }
