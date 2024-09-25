@@ -1,5 +1,5 @@
 (function () {
-  if ("serviceWorker" in navigator && "PushManager" in window) {
+  if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")
       .then((registration) => {
@@ -10,7 +10,9 @@
 
         return registration.pushManager.subscribe({
           userVisibleOnly: true, // Always show notifications
-          applicationServerKey: urlBase64ToUint8Array("Your_Public_VAPID_Key"), // Public VAPID key
+          applicationServerKey: urlBase64ToUint8Array(
+            "BIaQhF5lDg7L5pqnXGFh9QN8OT7ymEutB7w7xYo-gM_XZBALLIPL37r4siGYmFIa-E2GWu8ban5mUkSDHthUXuY"
+          ), // Public VAPID key
         });
       })
       .then((subscription) => {

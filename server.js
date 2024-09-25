@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 // VAPID keys should be generated only once.
 const vapidKeys = {
-  publicKey: "BIaQhF5lDg7L5pqnXG", // Your generated public key
+  publicKey:
+    "BIaQhF5lDg7L5pqnXGFh9QN8OT7ymEutB7w7xYo-gM_XZBALLIPL37r4siGYmFIa-E2GWu8ban5mUkSDHthUXuY", // Your generated public key
   privateKey: "h0K6hYWv4ng0nCBzQUio8EpKabG9ZAQR2jUOSdgLD0U", // Your generated private key
 };
 
