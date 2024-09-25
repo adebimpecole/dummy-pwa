@@ -29,11 +29,6 @@
         .then((response) => {
           if (response.ok) {
             console.log("User is subscribed!");
-
-            // Send notification every 1 minute
-            setInterval(() => {
-              sendNotification(); // Function to trigger a notification
-            }, 60000);
           } else {
             console.error("Failed to subscribe user.");
           }
@@ -42,18 +37,6 @@
           console.error("Service Worker or Push subscription error:", error);
         });
     };
-  }
-
-  function sendNotification() {
-    navigator.serviceWorker.ready.then((registration) => {
-      registration.pushManager.getSubscription().then((subscription) => {
-        subscription.showNotification("Reminder", {
-          body: "This is a notification sent every 1 minute.",
-          icon: "/images/icon.png",
-          badge: "/images/icon.png",
-        });
-      });
-    });
   }
 
   // Helper function to convert VAPID public key to Uint8Array

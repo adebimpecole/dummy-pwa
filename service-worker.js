@@ -48,9 +48,16 @@ self.addEventListener("push", (event) => {
 
   const options = {
     body: data.body,
-    icon: "/icons/icon.png", 
-    badge: "/icons/badge-72x72.png", // Your PWA badge icon
+    icon: "/icons/icon.png",
+    badge: "/icons/icon.png", // Your PWA badge icon
   };
+
+  event.waitUntil(
+    self.registration.showNotification("Hello!", {
+      body: "This is the dummy pwa app",
+      icon: "images/icon.png",
+    })
+  );
 
   event.waitUntil(
     self.registration.pushManager.getSubscription().then((subscription) => {
@@ -61,5 +68,6 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  event.waitUntil(clients.openWindow("/")); // Redirect to your homepage or another page
+  var fullPath = self.location.origin + event.notification.data.path;
+  clients.openWindow(fullPath);
 });
