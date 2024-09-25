@@ -64,16 +64,20 @@
       .then((response) => response.json())
       .then((books) => {
         const container = document.getElementById(`${type}-books-list`);
-        books.forEach((book) => {
-          const bookElement = document.createElement("div");
-          bookElement.className = "book";
-          bookElement.innerHTML = `
-                <h3>${book.title}</h3>
-                <p>Author: ${book.author}</p>
-                <p>Rating: ${book.rating} / 5</p>
-            `;
-          container.appendChild(bookElement);
-        });
+        if (container) {
+          books.forEach((book) => {
+            const bookElement = document.createElement("div");
+            bookElement.className = "book";
+            bookElement.innerHTML = `
+                  <h3>${book.title}</h3>
+                  <p>Author: ${book.author}</p>
+                  <p>Rating: ${book.rating} / 5</p>
+              `;
+            container.appendChild(bookElement);
+          });
+        } else {
+          console.error(`Container with id '${type}-books-list' not found`);
+        }
       })
       .catch((error) => console.error("Error fetching books:", error));
   }
