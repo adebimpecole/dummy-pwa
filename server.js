@@ -44,7 +44,7 @@ webPush.setVapidDetails(
 
 app.get("/", (req, res, next) => {
   console.log("passed");
-  res.json(books);
+  res.send(books);
   next();
 });
 
