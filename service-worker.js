@@ -42,12 +42,18 @@ self.addEventListener("periodicsync", (event) => {
   }
 });
 
+let notificationInterval = null;
+
 self.addEventListener("push", (event) => {
   event.waitUntil(
-    self.registration.showNotification("Hello!", {
-      body: "This is the dummy pwa app",
-      icon: "images/icon.png",
-    })
+    clearInterval(notificationInterval),
+
+    (notificationInterval = setInterval(() => {
+      self.registration.showNotification("Hello!", {
+        body: "This is the dummy pwa app",
+        icon: "images/icon.png",
+      });
+    }, 30000)) // 30 seconds
   );
 });
 
