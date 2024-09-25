@@ -61,7 +61,7 @@
 
   function fetchBooks(type) {
     fetch(`/`)
-      .then((response) => response.json())
+      .then(response)
       .then((books) => {
         const container = document.getElementById(`${type}-books-list`);
         books.forEach((book) => {
