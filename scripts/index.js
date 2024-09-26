@@ -32,13 +32,14 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
                 },
                 body: JSON.stringify({
                   subscription,
-                  payload,
+                  text,
                 }),
               });
               return subscription;
             }
             const response = await fetch("/api/vapid-public-key");
             const vapidPublicKey = await response.text();
+            console.log(vapidPublicKey);
             const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
             registration.pushManager.subscribe({
