@@ -40,8 +40,8 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
 
             const response = await fetch("/api/vapid-public-key");
             const vapidPublicKey = await response.text();
-            console.log(vapidPublicKey);
             const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+            console.log(convertedVapidKey);
 
             return registration.pushManager.subscribe({
               userVisibleOnly: true,
