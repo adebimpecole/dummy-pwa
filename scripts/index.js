@@ -1,5 +1,22 @@
 if ("serviceWorker" in navigator && "PushManager" in window) {
   window.onload = () => {
+    if (Notification.permission === "default") {
+      // Permission not granted or denied yet; request permission
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          console.log("Permission granted for notifications.");
+          // Proceed to subscribe for push notifications
+        } else {
+          console.error("Permission denied for notifications.");
+        }
+      });
+    } else if (Notification.permission === "granted") {
+      console.log("Notifications are already granted.");
+      // Proceed to subscribe for push notifications
+    } else {
+      console.error("Notifications are denied.");
+    }
+
     navigator.serviceWorker
       .register("/service-worker.js")
       .then((registration) => {
@@ -39,7 +56,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           body: JSON.stringify({ subscription }),
         });
       })
-      .then((response) => { 
+      .then((response) => {
         if (response.ok) {
           console.log("User is subscribed!");
         } else {
