@@ -5,7 +5,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           console.log("Permission granted for notifications.");
-          // Proceed to subscribe for push notifications 
+          // Proceed to subscribe for push notifications
         } else {
           console.error("Permission denied for notifications.");
         }
@@ -40,6 +40,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
 
             const response = await fetch("/api/vapid-public-key");
             const vapidPublicKey = await response.text();
+            console.log(vapidPublicKey);
             const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
             return registration.pushManager.subscribe({
