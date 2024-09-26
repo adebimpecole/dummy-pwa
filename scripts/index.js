@@ -25,7 +25,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           .then(async (subscription) => {
             if (subscription) {
               const text = "This is my payload!";
-              await fetch("/api/sendNotification", {
+              await fetch("/api/send-notifications", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
