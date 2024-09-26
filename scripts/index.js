@@ -57,6 +57,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
         });
       })
       .then((response) => {
+        console.log(response);
         if (response.ok) {
           console.log("User is subscribed!");
         } else {
