@@ -1,3 +1,4 @@
+let subscriptions = [];
 
 export default function handler(req, res) {
   if (req.method === "POST") {
@@ -12,4 +13,3 @@ export default function handler(req, res) {
     res.status(405).json({ message: "Method not allowed" });
   }
 }
-
