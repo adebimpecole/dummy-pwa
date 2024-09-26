@@ -3,9 +3,9 @@ const webPush = require("web-push");
 export default function handler(req, res) {
   if (req.method === "POST") {
     const subscription = req.body.subscription;
-    const payload = req.body.payload;
+    const payload = req.body.text;
     const options = {
-      TTL: req.body.ttl || 60, // Default TTL of 60 seconds
+      TTL: 60,
     };
 
     // Use setTimeout to send notification after the specified delay
