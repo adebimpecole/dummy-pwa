@@ -56,14 +56,6 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           body: JSON.stringify({ subscription }),
         });
       })
-      .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          console.log("User is subscribed!");
-        } else {
-          console.error("Failed to subscribe user.");
-        }
-      })
       .catch((error) => {
         console.error("Service Worker or Push subscription error:", error);
       });
