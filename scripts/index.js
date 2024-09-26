@@ -5,7 +5,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           console.log("Permission granted for notifications.");
-          // Proceed to subscribe for push notifications
+          // Proceed to subscribe for push notifications 
         } else {
           console.error("Permission denied for notifications.");
         }
