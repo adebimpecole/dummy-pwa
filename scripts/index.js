@@ -24,38 +24,44 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           .getSubscription()
           .then(async (subscription) => {
             if (subscription) {
-              const text = "This is my payload!";
-              await fetch("/api/sendNotification", {
-                method: "POST",
+              let text = "This is my payload";
+              fetch("/api/sendNotification", {
+                method: "post",
                 headers: {
-                  "Content-Type": "application/json",
+                  "Content-type": "application/json",
                 },
                 body: JSON.stringify({
                   subscription,
-                  text,
+                  payload,
                 }),
               });
               return subscription;
             }
-
             const response = await fetch("/api/vapid-public-key");
             const vapidPublicKey = await response.text();
             const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
-            return registration.pushManager.subscribe({
+            registration.pushManager.subscribe({
               userVisibleOnly: true,
               applicationServerKey: convertedVapidKey,
             });
           });
       })
       .then((subscription) => {
-        return fetch("/api/subscribe", {
-          method: "POST",
+        fetch("api/subscribe", {
+          method: "post",
           headers: {
-            "Content-Type": "application/json",
+            "Content-type": "application/json",
           },
           body: JSON.stringify({ subscription }),
         });
+      })
+      .then((response) => {
+        if (response.ok) {
+          console.log("User is subscribed!");
+        } else {
+          console.error("Failed to subscribe user.");
+        }
       })
       .catch((error) => {
         console.error("Service Worker or Push subscription error:", error);
