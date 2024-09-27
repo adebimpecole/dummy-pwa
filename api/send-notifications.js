@@ -27,11 +27,11 @@ export default function handler(req, res) {
       webPush
         .sendNotification(subscription, payload, options)
         .then(() => {
-          res.sendStatus(201); // Send status only once
+          res.status(201); // Send status only once
         })
         .catch((error) => {
           console.error("Error sending notification", error);
-          res.sendStatus(500);
+          res.status(500);
         });
     }, 6000);
   } else {

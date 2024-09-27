@@ -42,10 +42,12 @@ self.addEventListener("periodicsync", (event) => {
   }
 });
 
-self.addEventListener("push", (event) => {
+self.addEventListener("push", async (event) => {
   const payload = event.data?.text() ?? "No notification data";
-  // const audio = new Audio("/bell.mp3");
-  // audio.play();
+
+  const audio = new Audio("/path/to/custom/sound.mp3");
+  await audio.play();
+
   event.waitUntil(
     self.registration.showNotification("Dummy PWA", {
       body: payload,
