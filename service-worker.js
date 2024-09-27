@@ -44,18 +44,19 @@ self.addEventListener("periodicsync", (event) => {
 
 self.addEventListener("push", (event) => {
   const payload = event.data?.text() ?? "No notification data";
-  const audio = new Audio("/bell.mp3");
-  audio.play();
+  // const audio = new Audio("/bell.mp3");
+  // audio.play();
   event.waitUntil(
     self.registration.showNotification("Dummy PWA", {
       body: payload,
       icon: "/images/icon.png",
+      badge: "/images/book.png",
     })
   );
 });
 
 // Handle notification click event
 self.addEventListener("notificationclick", (event) => {
-  event.notification.close(); 
-  clients.openWindow("/"); 
+  event.notification.close();
+  clients.openWindow("/");
 });
