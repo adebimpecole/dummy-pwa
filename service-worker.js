@@ -48,17 +48,8 @@ self.addEventListener("push", (event) => {
     self.registration.showNotification("Dummy PWA", {
       body: payload,
       icon: "/images/icon.png",
-      silent: true,
     })
   );
-  self.clients.matchAll().then(function (clients) {
-    clients.forEach(function (client) {
-      client.postMessage({
-        type: "PLAY_CUSTOM_SOUND",
-        soundFile: "/bell.wav", // Replace with your sound file
-      });
-    });
-  });
 });
 
 // Handle notification click event

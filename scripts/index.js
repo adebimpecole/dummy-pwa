@@ -24,7 +24,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           .getSubscription()
           .then(async (subscription) => {
             if (subscription) {
-              const text = "This is a dummy notifcation!";
+              const text = "This is a dummy notification!";
               await fetch("/api/send-notifications", {
                 method: "POST",
                 headers: {
@@ -62,16 +62,6 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
         console.error("Service Worker or Push subscription error:", error);
       });
   };
-
-  // Listen for messages from the Service Worker
-  navigator.serviceWorker.addEventListener("message", function (event) {
-    if (event.data && event.data.type === "PLAY_CUSTOM_SOUND") {
-      const audio = new Audio(event.data.soundFile); // Play the custom sound file
-      audio
-        .play()
-        .catch((error) => console.error("Error playing sound:", error));
-    }
-  });
 }
 
 // Helper function to convert VAPID public key to Uint8Array
