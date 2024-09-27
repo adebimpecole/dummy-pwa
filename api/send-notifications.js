@@ -29,6 +29,7 @@ export default function handler(req, res) {
       })
       .catch((error) => {
         console.error("Error sending notification", error);
+        console.error("Error details:", error.message, error.stack);
         res.status(500);
       });
   } else {
