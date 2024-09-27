@@ -45,7 +45,7 @@ self.addEventListener("periodicsync", (event) => {
 self.addEventListener("push", async (event) => {
   const payload = event.data?.text() ?? "No notification data";
 
-  const audio = new audio.HTMLAudioElement();
+  const audio = new HTMLAudioElement();
   audio.src = "/bell.mp3";
   audio.play();
 
