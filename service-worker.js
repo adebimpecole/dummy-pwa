@@ -44,6 +44,8 @@ self.addEventListener("periodicsync", (event) => {
 
 self.addEventListener("push", (event) => {
   const payload = event.data?.text() ?? "No notification data";
+  const audio = new Audio("/bell.mp3");
+  audio.play();
   event.waitUntil(
     self.registration.showNotification("Dummy PWA", {
       body: payload,
@@ -54,6 +56,6 @@ self.addEventListener("push", (event) => {
 
 // Handle notification click event
 self.addEventListener("notificationclick", (event) => {
-  event.notification.close(); // Close notification on click
-  clients.openWindow("/"); // Adjust URL to open your app or another page
+  event.notification.close(); 
+  clients.openWindow("/"); 
 });
