@@ -26,8 +26,8 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
             if (subscription) {
               const text = "This is a dummy notification!";
 
-              setInterval(() => {
-                fetch("/api/send-notifications", {
+              setInterval(async () => {
+                await fetch("/api/send-notifications", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
