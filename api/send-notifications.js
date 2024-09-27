@@ -22,18 +22,15 @@ export default function handler(req, res) {
       TTL: 60,
     };
 
-    // Use setInterval to send notification after the specified delay
-    setInterval(() => {
-      webPush
-        .sendNotification(subscription, payload, options)
-        .then(() => {
-          res.status(201); // Send status only once
-        })
-        .catch((error) => {
-          console.error("Error sending notification", error);
-          res.status(500);
-        });
-    }, 6000);
+    webPush
+      .sendNotification(subscription, payload, options)
+      .then(() => {
+        res.status(201); // Send status only once
+      })
+      .catch((error) => {
+        console.error("Error sending notification", error);
+        res.status(500);
+      });
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }

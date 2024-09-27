@@ -25,16 +25,25 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           .then(async (subscription) => {
             if (subscription) {
               const text = "This is a dummy notification!";
-              await fetch("/api/send-notifications", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  subscription,
-                  text,
-                }),
-              });
+
+              setInterval(() => {
+                fetch("/api/send-notifications", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    subscription,
+                    text,
+                  }),
+                })
+                  .then((response) => response.json())
+                  .then((data) => console.log("Notification sent:", data))
+                  .catch((error) =>
+                    console.error("Error sending notification:", error)
+                  );
+              }, 60000);
+
               return subscription;
             }
 
