@@ -63,17 +63,14 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
       });
   };
 
-  // Function to play the notification sound
-  function playNotificationSound() {
-    const audio = new Audio("/bell.wav"); // Replace with your sound file
-    audio.play();
-  }
-
-  // Play sound when a notification is received
-  navigator.serviceWorker.ready.then((registration) => {
-    navigator.serviceWorker.addEventListener("push", (event) => {
-      playNotificationSound(); // Play sound when the notification is received
-    });
+  // Listen for messages from the Service Worker
+  navigator.serviceWorker.addEventListener("message", function (event) {
+    if (event.data && event.data.type === "PLAY_CUSTOM_SOUND") {
+      const audio = new Audio(event.data.soundFile); // Play the custom sound file
+      audio
+        .play()
+        .catch((error) => console.error("Error playing sound:", error));
+    }
   });
 }
 

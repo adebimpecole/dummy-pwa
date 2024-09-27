@@ -51,6 +51,14 @@ self.addEventListener("push", (event) => {
       silent: true,
     })
   );
+  self.clients.matchAll().then(function (clients) {
+    clients.forEach(function (client) {
+      client.postMessage({
+        type: "PLAY_CUSTOM_SOUND",
+        soundFile: "/bell.wav", // Replace with your sound file
+      });
+    });
+  });
 });
 
 // Handle notification click event
