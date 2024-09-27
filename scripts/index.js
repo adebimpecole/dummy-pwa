@@ -62,6 +62,19 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
         console.error("Service Worker or Push subscription error:", error);
       });
   };
+
+  // Function to play the notification sound
+  function playNotificationSound() {
+    const audio = new Audio("/bell.wav"); // Replace with your sound file
+    audio.play();
+  }
+
+  // Play sound when a notification is received
+  navigator.serviceWorker.ready.then((registration) => {
+    navigator.serviceWorker.addEventListener("push", (event) => {
+      playNotificationSound(); // Play sound when the notification is received
+    });
+  });
 }
 
 // Helper function to convert VAPID public key to Uint8Array
