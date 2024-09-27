@@ -43,10 +43,12 @@ self.addEventListener("periodicsync", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-  const payload = event.data?.text() ?? "no payload";
+  const payload = event.data?.text() ?? "No notification data";
   event.waitUntil(
-    self.registration.showNotification("ServiceWorker Cookbook", {
+    self.registration.showNotification("Dummy PWA", {
       body: payload,
+      icon: "/images/icon.png",
+      silent: true,
     })
   );
 });
