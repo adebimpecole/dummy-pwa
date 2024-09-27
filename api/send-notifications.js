@@ -25,12 +25,12 @@ export default function handler(req, res) {
     webPush
       .sendNotification(subscription, payload, options)
       .then(() => {
-        res.status(201); // Send status only once
+        res.status(201).json({ message: "Message sent" }); // Send status only once
       })
       .catch((error) => {
         console.error("Error sending notification", error);
         console.error("Error details:", error.message, error.stack);
-        res.status(500);
+        res.status(500).json({ message: "Message not sent" });
       });
   } else {
     res.status(405).json({ message: "Method not allowed" });
