@@ -27,6 +27,8 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
               const text = "This is a dummy notification!";
 
               setInterval(async () => {
+                console.log("Sending notification...");
+
                 await fetch("/api/send-notifications", {
                   method: "POST",
                   headers: {

@@ -21,7 +21,7 @@ export default function handler(req, res) {
     const options = {
       TTL: 60,
     };
-
+    console.log("Reached!");
     webPush
       .sendNotification(subscription, payload, options)
       .then(() => {

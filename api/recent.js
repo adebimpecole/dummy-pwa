@@ -1,8 +1,5 @@
 export default function handler(req, res) {
   if (req.method === "GET") {
-    // Fetch new books logic here
-    console.log("New books route hit"); // Log to console for debugging
-
     let books = [
       { id: 1, title: "Book One", author: "Author One", rating: 4.5 },
       { id: 2, title: "Book Two", author: "Author Two", rating: 4.0 },
