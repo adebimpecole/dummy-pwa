@@ -4,7 +4,7 @@ const urlsToCache = [
   "/index.html",
   "/styles/index.css",
   "/scripts/index.js",
-  "/bell.wav",
+  "/sound/bell.wav",
   "/background-processes.js",
 ];
 
