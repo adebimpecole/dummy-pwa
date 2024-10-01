@@ -99,8 +99,10 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
   };
 }
 
-function Alert() {
-  this.sound = new Audio("sound/bell.wav");
+class Alert {
+  constructor() {
+    this.sound = new Audio("sound/bell.wav");
+  }
 }
 
 const audio = new Alert();
@@ -114,8 +116,6 @@ function displayNotification(notificationData) {
     badge: "images/book.png",
     silent: true,
   };
-
-  // Create an audio object for the notification sound
 
   // Display the notification
   if (Notification.permission === "granted") {
