@@ -106,24 +106,21 @@ function displayNotification(notificationData) {
     body: notificationData.body || "You have a new message.",
     icon: "images/icon.png", // Set your icon URL here
     badge: "images/book.png",
+    silent: true,
   };
 
   // Create an audio object for the notification sound
-  const audio = new Audio("../bell.wav");
+  const audio = new Audio("sound/bell.wav");
 
   // Display the notification
   if (Notification.permission === "granted") {
     new Notification(title, options);
-    audio.play().catch((error) => {
-      console.error("Error playing sound:", error);
-    });
+    audio.play();
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
         new Notification(title, options);
-        audio.play().catch((error) => {
-          console.error("Error playing sound:", error);
-        });
+        audio.play();
       }
     });
   }
