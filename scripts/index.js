@@ -99,6 +99,12 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
   };
 }
 
+function Alert() {
+  this.sound = new Audio("sound/bell.wav");
+}
+
+const audio = new Alert();
+
 // Function to display the notification
 function displayNotification(notificationData) {
   const title = notificationData.title || "New Notification";
@@ -110,17 +116,16 @@ function displayNotification(notificationData) {
   };
 
   // Create an audio object for the notification sound
-  const audio = new Audio("sound/bell.wav");
 
   // Display the notification
   if (Notification.permission === "granted") {
     new Notification(title, options);
-    audio.play();
+    audio.sound.play();
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
         new Notification(title, options);
-        audio.play();
+        audio.sound.play();
       }
     });
   }
