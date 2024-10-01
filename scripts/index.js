@@ -20,6 +20,15 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
     navigator.serviceWorker
       .register("/service-worker.js")
       .then((registration) => {
+        // Listen for messages from the Web Worker
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          const data = event.data;
+
+          // Handle messages from the Web Worker
+          if (data.action === "showNotification") {
+            displayNotification(data.data);
+          }
+        });
         return registration.pushManager
           .getSubscription()
           .then(async (subscription) => {
@@ -88,6 +97,27 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
         console.error("Service Worker or Push subscription error:", error);
       });
   };
+}
+
+// Function to display the notification
+function displayNotification(notificationData) {
+  const title = notificationData.title || "New Notification";
+  const options = {
+    body: notificationData.body || "You have a new message.",
+    icon: "images/icon.png", // Set your icon URL here
+    badge: "images/book.png",
+  };
+
+  // Display the notification
+  if (Notification.permission === "granted") {
+    new Notification(title, options);
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        new Notification(title, options);
+      }
+    });
+  }
 }
 
 // Helper function to convert VAPID public key to Uint8Array

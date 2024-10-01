@@ -4,7 +4,8 @@ const urlsToCache = [
   "/index.html",
   "/styles/index.css",
   "/scripts/index.js",
-  "/book.html",
+  "/bell.wav",
+  "/background-processes.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -42,20 +43,21 @@ self.addEventListener("periodicsync", (event) => {
   }
 });
 
-self.addEventListener("push", async (event) => {
-  const payload = event.data?.text() ?? "No notification data";
+let worker;
 
-  const audio = new HTMLAudioElement();
-  audio.src = "/bell.mp3";
-  audio.play();
+self.addEventListener("push", (event) => {
+  const data = event.data ? event.data.json() : {};
 
-  event.waitUntil(
-    self.registration.showNotification("Dummy PWA", {
-      body: payload,
-      icon: "/images/icon.png",
-      badge: "/images/book.png",
-    })
-  );
+  if (!worker) {
+    worker = new Worker("/background-processes.js");
+  }
+  worker.postMessage(data);
+});
+
+self.addEventListener("activate", () => {
+  if (!worker) {
+    worker = new Worker("/background-processes.js");
+  }
 });
 
 // Handle notification click event
