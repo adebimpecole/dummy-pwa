@@ -108,13 +108,22 @@ function displayNotification(notificationData) {
     badge: "images/book.png",
   };
 
+  // Create an audio object for the notification sound
+  const audio = new Audio("../bell.wav");
+
   // Display the notification
   if (Notification.permission === "granted") {
     new Notification(title, options);
+    audio.play().catch((error) => {
+      console.error("Error playing sound:", error);
+    });
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
         new Notification(title, options);
+        audio.play().catch((error) => {
+          console.error("Error playing sound:", error);
+        });
       }
     });
   }
