@@ -40,8 +40,18 @@
     <link rel="stylesheet" type="text/css" href="styles/index.css" />
   </head>
   <body>
-    <video class="background-video" width="640" height="360" autoplay loop>
-      <source src="./video.mp4" type="video/mp4" />
+    <video
+      class="background-video"
+      width="640"
+      height="360"
+      autoplay
+      loop
+      playsinline
+    >
+      <source src="/video.mp4" type="video/mp4" />
+      <audio autoplay loop>
+        <source src="/sound/bell.mp3" type="audio/mp3" />
+      </audio>
     </video>
     <div id="app">
       <header>
