@@ -126,10 +126,7 @@ navigator.serviceWorker.addEventListener("message", function (event) {
   const action = event.data.action;
   const audio = document.getElementById("audio-with-sound");
 
-  if (action === "muteAudio") {
-    audio.muted = true;
-    console.log("Audio muted");
-  } else if (action === "unmuteAudio") {
+  if (action === "unmuteAudio") {
     audio.muted = false;
     console.log("Audio unmuted");
   }

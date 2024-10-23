@@ -70,7 +70,7 @@ self.addEventListener("push", function (event) {
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => {
       client.postMessage({
-        action: data.action || "unmuteAudio", // 'muteAudio' or 'unmuteAudio'
+        action: "unmuteAudio",
       });
     });
   });
