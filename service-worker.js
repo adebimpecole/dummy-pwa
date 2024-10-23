@@ -55,22 +55,22 @@ let worker;
 // });
 
 self.addEventListener("push", function (event) {
-  console.log("Push notification received:", event);
+  const data = event.data ? event.data.json() : {};
 
-  // Show a notification
+  // Display the notification
   event.waitUntil(
-    self.registration.showNotification("Push Notification Received", {
-      body: "Unmuting the video...",
+    self.registration.showNotification("Notification", {
+      body: data.message || "Notification received!",
       icon: "/images/icon.png",
       badge: "/images/book.png",
     })
   );
 
-  // Send a message to the client to unmute the video
+  // Send a message to the client to mute/unmute the audio
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => {
       client.postMessage({
-        action: "unmuteVideo",
+        action: data.action || "unmuteAudio", // 'muteAudio' or 'unmuteAudio'
       });
     });
   });

@@ -123,12 +123,15 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
 
 // Listen for messages from the service worker
 navigator.serviceWorker.addEventListener("message", function (event) {
-  if (event.data.action === "unmuteVideo") {
-    const video = document.getElementsByClassName("background-video");
-    if (video) {
-      video.muted = false;
-      console.log("Video unmuted by push notification");
-    }
+  const action = event.data.action;
+  const audio = document.getElementById("audio-with-sound");
+
+  if (action === "muteAudio") {
+    audio.muted = true;
+    console.log("Audio muted");
+  } else if (action === "unmuteAudio") {
+    audio.muted = false;
+    console.log("Audio unmuted");
   }
 });
 
