@@ -45,14 +45,37 @@ self.addEventListener("periodicsync", (event) => {
 
 let worker;
 
-self.addEventListener("push", (event) => {
-  const data = event.data ? event.data.json() : {};
+// self.addEventListener("push", (event) => {
+//   const data = event.data ? event.data.json() : {};
 
-  if (!worker) {
-    worker = new Worker("/background-processes.js");
-  }
-  worker.postMessage(data);
+//   if (!worker) {
+//     worker = new Worker("/background-processes.js");
+//   }
+//   worker.postMessage(data);
+// });
+
+self.addEventListener('push', function(event) {
+  console.log('Push notification received:', event);
+
+  // Show a notification
+  event.waitUntil(
+    self.registration.showNotification('Push Notification Received', {
+      body: 'Unmuting the video...',
+      icon: "images/icon.png",
+      badge: "images/book.png",
+    })
+  );
+
+  // Send a message to the client to unmute the video
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage({
+        action: 'unmuteVideo'
+      });
+    });
+  });
 });
+
 
 self.addEventListener("activate", () => {
   if (!worker) {
