@@ -54,28 +54,27 @@ let worker;
 //   worker.postMessage(data);
 // });
 
-self.addEventListener('push', function(event) {
-  console.log('Push notification received:', event);
+self.addEventListener("push", function (event) {
+  console.log("Push notification received:", event);
 
   // Show a notification
   event.waitUntil(
-    self.registration.showNotification('Push Notification Received', {
-      body: 'Unmuting the video...',
-      icon: "images/icon.png",
-      badge: "images/book.png",
+    self.registration.showNotification("Push Notification Received", {
+      body: "Unmuting the video...",
+      icon: "/images/icon.png",
+      badge: "/images/book.png",
     })
   );
 
   // Send a message to the client to unmute the video
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => {
+  self.clients.matchAll().then((clients) => {
+    clients.forEach((client) => {
       client.postMessage({
-        action: 'unmuteVideo'
+        action: "unmuteVideo",
       });
     });
   });
 });
-
 
 self.addEventListener("activate", () => {
   if (!worker) {
